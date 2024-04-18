@@ -16,15 +16,14 @@ if __name__ == "__main__":
     model = models.googlenet(weights='IMAGENET1K_V1')
     num_features = model.fc.in_features
     model.fc = torch.nn.Linear(num_features, 2)
-    #torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     #SỬA ĐỂ CHẠY TRÊN CPU
-    model.to('cuda' if torch.cuda.is_available() else 'cpu')
-    #model.to('cuda')
+    #model.to('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to('cuda')
 
     # 2. Load the weights trained on the Cat-Dog dataset
     #SỬA ĐỂ CHẠY TRÊN CPU
-    #model.load_state_dict(torch.load('checkpoints/epoch_8_acc_0.9750.pt', 'cuda'))
-    model.load_state_dict(torch.load('checkpoints/epoch_8_acc_0.9750.pt', 'cuda' if torch.cuda.is_available() else 'cpu'))
+    model.load_state_dict(torch.load('checkpoints/epoch_8_acc_0.9750.pt', 'cuda'))
+    #model.load_state_dict(torch.load('checkpoints/epoch_8_acc_0.9750.pt', 'cuda' if torch.cuda.is_available() else 'cpu'))
     model.eval()
 
     # 3. Load an input image
@@ -35,8 +34,8 @@ if __name__ == "__main__":
     # 4. Resize and convert the image to a tensor
     img = T.Resize((256, 256), interpolation=T.InterpolationMode.BILINEAR)(img)
     #SỬA ĐỂ CHẠY TRÊN CPU
-    #img = T.ToTensor()(img).to('cuda' , dtype=torch.float).unsqueeze(dim=0)  # expand along the first dimension
-    img = T.ToTensor()(img).to('cuda' if torch.cuda.is_available() else 'cpu', dtype=torch.float).unsqueeze(dim=0)  # expand along the first dimension
+    img = T.ToTensor()(img).to('cuda' , dtype=torch.float).unsqueeze(dim=0)  # expand along the first dimension
+    #img = T.ToTensor()(img).to('cuda' if torch.cuda.is_available() else 'cpu', dtype=torch.float).unsqueeze(dim=0)  # expand along the first dimension
 
     # 5. Perform a forward pass
     logits = model(img)
