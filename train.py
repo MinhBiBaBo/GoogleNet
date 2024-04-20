@@ -103,10 +103,10 @@ if __name__ == "__main__":
     model.fc = torch.nn.Linear(num_features, 2)
     model.to('cuda')
     '''
-    #OPTION 2: use TIMm
+    #OPTION 2: use TIMM
     # 3. Create a new deep model with pre-trained weights 
     import timm
-    model = timm.create_model(model_name:'hrnet_w18',pretrained=True,num_classes=2).to('cuda')
+    model = timm.create_model(model_name: 'hrnet_w18', pretrained=True, num_classes=2).to('cuda') 
 
     # 4. Specify loss function and optimizer
     optimizer = Adam(model.parameters(), lr=1e-4)
