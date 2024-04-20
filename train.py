@@ -91,8 +91,6 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=32, shuffle=True)
 
-    #OPTION 1: use torchvision
-    '''
     # 3. Create a new deep model with pre-trained weights 
     import torchvision.models as models
     model = models.googlenet(weights='IMAGENET1K_V1')
@@ -102,12 +100,7 @@ if __name__ == "__main__":
     num_features = model.fc.in_features
     model.fc = torch.nn.Linear(num_features, 2)
     model.to('cuda')
-    '''
-    #OPTION 2: use TIMM
-    # 3. Create a new deep model with pre-trained weights 
-    import timm
-    model = timm.create_model(model_name: 'hrnet_w18', pretrained=True, num_classes=2).to('cuda') 
-
+    
     # 4. Specify loss function and optimizer
     optimizer = Adam(model.parameters(), lr=1e-4)
     loss_fn = torch.nn.CrossEntropyLoss()
