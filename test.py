@@ -12,8 +12,10 @@ CLASS = {0: 'Cat', 1: 'Dog'}
 if __name__ == "__main__":
 
     # 1. Create a new deep model
-    import torchvision.models as models
-    model = models.googlenet(weights='IMAGENET1K_V1')
+    #import torchvision.models as models
+    #model = models.googlenet(weights='IMAGENET1K_V1')
+    #Dùng thư viện timm
+    
     num_features = model.fc.in_features
     model.fc = torch.nn.Linear(num_features, 2)
     #SỬA ĐỂ CHẠY TRÊN CPU
