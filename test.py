@@ -11,17 +11,17 @@ CLASS = {0: 'Cat', 1: 'Dog'}
 
 if __name__ == "__main__":
 
-    # 1. Create a new deep model
-    #import torchvision.models as models
-    #model = models.googlenet(weights='IMAGENET1K_V1')
-    #Dùng thư viện timm
-    import timm
-    model = timm.create_model('vit_base_patch16_224', pretrained = True, num_classes = 2).to('cuda')
+    # 1. Create a new deep model ViT
+    import torchvision.models as models
+    from torchvision.models import ViT_B_16_Weights
+    model = models.vit_b_16(weights=ViT_B_16_Weights.DEFAULT, num_classes=1000)
+    #fine tune vit
+    num_classes = 2  # Example: for a dataset with 10 classes
+    model.heads.head = torch.nn.Linear(model.heads.head.in_features, num_classes)
     
-    num_features = model.fc.in_features
-    model.fc = torch.nn.Linear(num_features, 2)
-    #SỬA ĐỂ CHẠY TRÊN CPU
-    #model.to('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    #num_features = model.fc.in_features
+    #model.fc = torch.nn.Linear(num_features, 2)
     model.to('cuda')
 
     # 2. Load the weights trained on the Cat-Dog dataset
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     plt.show()
 
     # 4. Resize and convert the image to a tensor
-    img = T.Resize((256, 256), interpolation=T.InterpolationMode.BILINEAR)(img)
+    img = T.Resize((224, 224), interpolation=T.InterpolationMode.BILINEAR)(img)
     #SỬA ĐỂ CHẠY TRÊN CPU
     img = T.ToTensor()(img).to('cuda' , dtype=torch.float).unsqueeze(dim=0)  # expand along the first dimension
     #img = T.ToTensor()(img).to('cuda' if torch.cuda.is_available() else 'cpu', dtype=torch.float).unsqueeze(dim=0)  # expand along the first dimension
