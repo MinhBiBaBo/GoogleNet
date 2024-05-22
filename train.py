@@ -110,7 +110,8 @@ if __name__ == "__main__":
 
     # 5. Train the model with 100 epochs
     max_acc = 0
-    for epoch in range(100):
+    #Sửa epoch 10 thay 100
+    for epoch in range(10):
 
         # 5.1. Train the model over a single epoch
         train_loss, train_acc = train_model()
