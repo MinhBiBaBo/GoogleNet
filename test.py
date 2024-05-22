@@ -15,6 +15,8 @@ if __name__ == "__main__":
     #import torchvision.models as models
     #model = models.googlenet(weights='IMAGENET1K_V1')
     #Dùng thư viện timm
+    import timm
+    model = timm.create_model(model_name = 'ViT', pretrained = True, num_classes = 2).to('cuda')
     
     num_features = model.fc.in_features
     model.fc = torch.nn.Linear(num_features, 2)
