@@ -83,7 +83,7 @@ def validate_model():
 if __name__ == "__main__":
 
     # 1. Load the dataset
-    transform = transforms.Compose([Resize((256, 256)), ToTensor()])
+    transform = transforms.Compose([Resize((224, 224)), ToTensor()])
     train_dataset = ImageFolder(root='dataset/cat_dog/train', transform=transform)
     val_dataset = ImageFolder(root='dataset/cat_dog/test', transform=transform)
 
@@ -94,14 +94,20 @@ if __name__ == "__main__":
     # 3.OPTION 1 Create a new deep model with pre-trained weights 
     #import torchvision.models as models
     #model = models.googlenet(weights='IMAGENET1K_V1')
+    import torchvision.models as models
+    from torchvision.models import ViT_B_16_Weights
+    model = models.vit_b_16(weights=ViT_B_16_Weights.DEFAULT, num_classes=1000)
+    #fine tune vit
+    num_classes = 2  # Example: for a dataset with 10 classes
+    model.heads.head = torch.nn.Linear(model.heads.head.in_features, num_classes)
     # 3. OPTION 2. Create a new deep model with pre-trained weights 
-    import timm
-    model = timm.create_model('vit_base_patch16_224', pretrained = True, num_classes = 2).to('cuda')
-
+    #import timm
+    #model = timm.create_model('vit_base_patch16_224', pretrained = True, num_classes = 2).to('cuda')
+    
     # 4. Note that the model pre-trained model has 1,000 output neurons (because ImageNet has 1,000 classes), so we must
     # customize the last linear layer to adapt to our 2-class problem (i.e., Cat vs Dog)
-    num_features = model.fc.in_features
-    model.fc = torch.nn.Linear(num_features, 2)
+    #num_features = model.fc.in_features
+    #model.fc = torch.nn.Linear(num_features, 2)
     model.to('cuda')
     
     # 4. Specify loss function and optimizer
