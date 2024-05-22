@@ -96,7 +96,7 @@ if __name__ == "__main__":
     #model = models.googlenet(weights='IMAGENET1K_V1')
     # 3. OPTION 2. Create a new deep model with pre-trained weights 
     import timm
-    model = timm.create_model(model_name = 'hrnet_w18', pretrained = True, num_classes = 2).to('cuda')
+    model = timm.create_model(model_name = 'ViT', pretrained = True, num_classes = 2).to('cuda')
 
     # 4. Note that the model pre-trained model has 1,000 output neurons (because ImageNet has 1,000 classes), so we must
     # customize the last linear layer to adapt to our 2-class problem (i.e., Cat vs Dog)
