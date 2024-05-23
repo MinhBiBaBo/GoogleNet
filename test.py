@@ -33,6 +33,7 @@ if __name__ == "__main__":
     # 3. Load an input image
     img = Image.open('GoogleNet/dataset/cat_dog/test/cats/cat_1.jpg')
     plt.imshow(img)
+    plt.savefig('GoogleNet/ketqua.png')
     plt.show()
 
     # 4. Resize and convert the image to a tensor
