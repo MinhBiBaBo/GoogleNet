@@ -31,7 +31,7 @@ if __name__ == "__main__":
     model.eval()
 
     # 3. Load an input image
-    img = Image.open('dataset/cat_dog/test/dogs/dog_521.jpg')
+    img = Image.open('GoogleNet/dataset/cat_dog/test/dogs/dog_521.jpg')
     plt.imshow(img)
     plt.show()
 
