@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     # 2. Load the weights trained on the Cat-Dog dataset
     #SỬA ĐỂ CHẠY TRÊN CPU
-    model.load_state_dict(torch.load('checkpoints/epoch_5_acc_0.9633.pt', 'cuda'))
+    model.load_state_dict(torch.load('content/drive/My Drive/GoogleNet/checkpoints/epoch_5_acc_0.9633.pt', 'cuda'))
     #model.load_state_dict(torch.load('checkpoints/epoch_8_acc_0.9750.pt', 'cuda' if torch.cuda.is_available() else 'cpu'))
     model.eval()
 
